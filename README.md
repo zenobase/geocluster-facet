@@ -12,8 +12,8 @@ Versions
 <table>
 	<thead>
 		<tr>
-			<td>geocluster-facet</td>
-			<td>elasticsearch</td>
+			<th>geocluster-facet</th>
+			<th>elasticsearch</th>
 		</tr>
 	</thead>
 	<tbody>
