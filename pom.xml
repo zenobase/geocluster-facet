@@ -65,6 +65,7 @@
 				<version>2.3</version>
 				<configuration>
 					<outputDirectory>${project.build.directory}/releases/</outputDirectory>
+					<appendAssemblyId>false</appendAssemblyId>
 					<descriptors>
 						<descriptor>${basedir}/src/main/assemblies/plugin.xml</descriptor>
 					</descriptors>
