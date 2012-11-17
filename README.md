@@ -1,7 +1,7 @@
 Geo Cluster Facet Plugin for elasticsearch
 ==========================================
 
-This plugin provides a facet for (elasticsearch)[http://www.elasticsearch.org/] to aggregate documents with <code>geo_point</code> fields.
+This plugin provides a facet for [elasticsearch](http://www.elasticsearch.org/) to aggregate documents with `geo_point` fields.
 
 To install the plugin, download and extract this plugin into the `plugins` dir, or run `bin/plugin -install zenobase/geocluster-facet/0.0.1`.
 
@@ -35,11 +35,11 @@ Parameters
 <table>
 	<tbody>
 		<tr>
-			<td><code>field</code></td>
-			<td>The name of a field of type <code>geo_point</code>.</td>
+			<th>field</th>
+			<td>The name of a field of type `geo_point`.</td>
 		</tr>
 		<tr>
-            <td><code>factor</code></td>
+            <th>factor</th>
         	<td>Controls the amount of clustering, from 0.0 (don't cluster any points) to 1.0 (create a single cluster containing all points). 
         	Defaults to 0.2. This value is relative to the size of the area that contains points, so it does not need to be adjusted e.g. when 
         	zooming in on a map.</td>
