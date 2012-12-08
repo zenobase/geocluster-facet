@@ -18,12 +18,12 @@ Versions
 	</thead>
 	<tbody>
 		<tr>
-			<td>master</td>
-			<td>0.19.11 -> 0.20.0.RC1</td>
+			<td>0.0.2</td>
+			<td>0.20.x</td>
 		</tr>
 		<tr>
             <td>0.0.1</td>
-        	<td>0.19.11 -> 0.20.0.RC1</td>
+        	<td>0.19.x</td>
         </tr>
 	</tbody>
 </table>
