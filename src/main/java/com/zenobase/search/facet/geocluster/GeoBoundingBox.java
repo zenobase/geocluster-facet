@@ -1,9 +1,9 @@
 package com.zenobase.search.facet.geocluster;
 
 import java.io.IOException;
+import java.util.Arrays;
 
 import org.elasticsearch.common.Preconditions;
-import org.elasticsearch.common.inject.internal.Objects;
 import org.elasticsearch.common.io.stream.StreamInput;
 import org.elasticsearch.common.io.stream.StreamOutput;
 import org.elasticsearch.common.unit.DistanceUnit;
@@ -77,7 +77,11 @@ public class GeoBoundingBox {
 
 	@Override
 	public int hashCode() {
-		return Objects.hashCode(topLeft.toString(), bottomRight.toString());
+		return hashCode(topLeft.toString(), bottomRight.toString());
+	}
+
+	private static int hashCode(Object... objects) {
+		return Arrays.hashCode(objects);
 	}
 
 	@Override

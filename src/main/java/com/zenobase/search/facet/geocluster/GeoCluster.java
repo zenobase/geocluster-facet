@@ -1,8 +1,8 @@
 package com.zenobase.search.facet.geocluster;
 
 import java.io.IOException;
+import java.util.Arrays;
 
-import org.elasticsearch.common.inject.internal.Objects;
 import org.elasticsearch.common.io.stream.StreamInput;
 import org.elasticsearch.common.io.stream.StreamOutput;
 import org.elasticsearch.index.mapper.geo.GeoPoint;
@@ -85,7 +85,11 @@ public class GeoCluster {
 
 	@Override
 	public int hashCode() {
-		return Objects.hashCode(size, center.toString(), bounds);
+		return hashCode(size, center.toString(), bounds);
+	}
+
+	private static int hashCode(Object... objects) {
+		return Arrays.hashCode(objects);
 	}
 
 	@Override
