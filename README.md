@@ -57,11 +57,19 @@ Query:
 {
     "query" : { ... }
     "facets" : {
-        "geo_cluster" : {
-        	"field" : "location",
-        	"factor" : 0.5
+        "places" : { 
+            "geo_cluster" : {
+                "field" : "location",
+                "factor" : 0.5
+            }
         }
+    }
 }
+```
+
+```java
+SearchSourceBuilder search = ...
+search.facet(new GeoClusterFacetBuilder("places", "location", 0.5));
 ```
 
 Result:
