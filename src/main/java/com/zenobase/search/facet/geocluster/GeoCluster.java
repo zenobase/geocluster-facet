@@ -59,8 +59,8 @@ public class GeoCluster {
 		GeoPoint center = GeoPoints.readFrom(in);
 		GeoBoundingBox bounds = size > 1
 			? GeoBoundingBox.readFrom(in)
-			: new GeoBoundingBox(center, center);
-		return new GeoCluster(size, center, bounds);
+				: new GeoBoundingBox(center, center);
+			return new GeoCluster(size, center, bounds);
 	}
 
 	public void writeTo(StreamOutput out) throws IOException {

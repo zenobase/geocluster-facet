@@ -42,47 +42,47 @@ public class InternalGeoClusterFacet implements GeoClusterFacet, InternalFacet {
 		this.entries = entries;
 	}
 
-    @Override
-    public String name() {
-        return this.name;
-    }
+	@Override
+	public String name() {
+		return this.name;
+	}
 
-    @Override
-    public String getName() {
-        return name();
-    }
+	@Override
+	public String getName() {
+		return name();
+	}
 
-    @Override
-    public double getFactor() {
+	@Override
+	public double getFactor() {
 		return factor;
 	}
 
-    @Override
-    public String type() {
-        return TYPE;
-    }
+	@Override
+	public String type() {
+		return TYPE;
+	}
 
-    @Override
-    public String getType() {
-        return type();
-    }
+	@Override
+	public String getType() {
+		return type();
+	}
 
-    @Override
-    public List<GeoCluster> entries() {
-        return ImmutableList.copyOf(entries);
-    }
+	@Override
+	public List<GeoCluster> entries() {
+		return ImmutableList.copyOf(entries);
+	}
 
-    @Override
-    public List<GeoCluster> getEntries() {
-        return entries();
-    }
+	@Override
+	public List<GeoCluster> getEntries() {
+		return entries();
+	}
 
-    @Override
-    public Iterator<GeoCluster> iterator() {
-        return entries().iterator();
-    }
+	@Override
+	public Iterator<GeoCluster> iterator() {
+		return entries().iterator();
+	}
 
-    @Override
+	@Override
 	public String streamType() {
 		return STREAM_TYPE;
 	}

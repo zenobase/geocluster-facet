@@ -18,9 +18,9 @@ public class GeoClusterFacetCollector extends AbstractFacetCollector {
 	private final FieldDataCache fieldDataCache;
 	private final double factor;
 	private final GeoClusterBuilder builder;
-    private final GeoPointFieldData.ValueInDocProc aggregator;
-    private final String indexFieldName;
-    private GeoPointFieldData fieldData;
+	private final GeoPointFieldData.ValueInDocProc aggregator;
+	private final String indexFieldName;
+	private GeoPointFieldData fieldData;
 
 	public GeoClusterFacetCollector(String facetName, String fieldName, double factor, SearchContext context) {
 
@@ -51,7 +51,7 @@ public class GeoClusterFacetCollector extends AbstractFacetCollector {
 
 	@Override
 	protected void doSetNextReader(IndexReader reader, int docBase) throws IOException {
-		 fieldData = (GeoPointFieldData) fieldDataCache.cache(GeoPointFieldDataType.TYPE, reader, indexFieldName);
+		fieldData = (GeoPointFieldData) fieldDataCache.cache(GeoPointFieldDataType.TYPE, reader, indexFieldName);
 	}
 
 	@Override

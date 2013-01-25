@@ -18,12 +18,12 @@ public class GeoClusterFacetBuilder extends AbstractFacetBuilder {
 
 	@Override
 	public XContentBuilder toXContent(XContentBuilder builder, Params params) throws IOException {
-        builder.startObject(name);
-        builder.startObject(GeoClusterFacet.TYPE);
-        builder.field("field", fieldName);
-        builder.field("factor", factor);
-        builder.endObject();
-        builder.endObject();
+		builder.startObject(name);
+		builder.startObject(GeoClusterFacet.TYPE);
+		builder.field("field", fieldName);
+		builder.field("factor", factor);
+		builder.endObject();
+		builder.endObject();
 		return builder;
 	}
 }

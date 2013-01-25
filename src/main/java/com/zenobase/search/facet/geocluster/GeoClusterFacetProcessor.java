@@ -33,20 +33,20 @@ public class GeoClusterFacetProcessor extends AbstractComponent implements Facet
 		String fieldName = null;
 		double factor = 0.1;
 
-        String currentFieldName = null;
-        XContentParser.Token token;
-        while ((token = parser.nextToken()) != XContentParser.Token.END_OBJECT) {
-            if (token == XContentParser.Token.FIELD_NAME) {
-                currentFieldName = parser.currentName();
-            } else if (token == XContentParser.Token.START_OBJECT) {
-            } else if (token.isValue()) {
-                if ("field".equals(currentFieldName)) {
-                    fieldName = parser.text();
-                } else if ("factor".equals(currentFieldName)) {
-            		factor = parser.doubleValue();
-                }
-            }
-        }
+		String currentFieldName = null;
+		XContentParser.Token token;
+		while ((token = parser.nextToken()) != XContentParser.Token.END_OBJECT) {
+			if (token == XContentParser.Token.FIELD_NAME) {
+				currentFieldName = parser.currentName();
+			} else if (token == XContentParser.Token.START_OBJECT) {
+			} else if (token.isValue()) {
+				if ("field".equals(currentFieldName)) {
+					fieldName = parser.text();
+				} else if ("factor".equals(currentFieldName)) {
+					factor = parser.doubleValue();
+				}
+			}
+		}
 
 		return new GeoClusterFacetCollector(facetName, fieldName, factor, context);
 	}
