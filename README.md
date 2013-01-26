@@ -18,6 +18,14 @@ Versions
 	</thead>
 	<tbody>
 		<tr>
+			<td>master</td>
+			<td>0.20.x</td>
+		</tr>
+		<tr>
+			<td>0.0.3</td>
+			<td>0.20.x</td>
+		</tr>
+		<tr>
 			<td>0.0.2</td>
 			<td>0.20.x</td>
 		</tr>
@@ -102,7 +110,7 @@ License
 ```
 This software is licensed under the Apache 2 license, quoted below.
 
-Copyright 2012 Zenobase LLC
+Copyright 2012-2013 Zenobase LLC
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not
 use this file except in compliance with the License. You may obtain a copy of
