@@ -23,6 +23,7 @@ public class GeoClusterFacetBuilder extends AbstractFacetBuilder {
 		builder.field("field", fieldName);
 		builder.field("factor", factor);
 		builder.endObject();
+		addFilterFacetAndGlobal(builder, params);
 		builder.endObject();
 		return builder;
 	}
