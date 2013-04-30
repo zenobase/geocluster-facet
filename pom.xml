@@ -3,14 +3,14 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.zenobase</groupId>
 	<artifactId>geocluster-facet</artifactId>
-	<version>0.0.3</version>
+	<version>0.0.4</version>
 	<packaging>jar</packaging>
 
 	<dependencies>
 		<dependency>
 			<groupId>org.elasticsearch</groupId>
 			<artifactId>elasticsearch</artifactId>
-			<version>0.20.2</version>
+			<version>0.20.6</version>
 		</dependency>
 		<dependency>
 			<groupId>org.hamcrest</groupId>

@@ -22,6 +22,10 @@ Versions
 			<td>0.20.x</td>
 		</tr>
 		<tr>
+			<td><a href="https://docs.google.com/file/d/0B6V71rdiuHLJNlcxQV8zOVhTWWs/edit?usp=sharing">0.0.4</a></td>
+			<td>0.20.x</td>
+		</tr>
+		<tr>
 			<td><a href="https://docs.google.com/file/d/0B6V71rdiuHLJbnY1Q2xGQlVMUGc/edit?usp=sharing">0.0.3</a></td>
 			<td>0.20.x</td>
 		</tr>
