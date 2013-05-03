@@ -4,8 +4,8 @@ import java.util.List;
 
 import org.elasticsearch.common.collect.ImmutableList;
 import org.elasticsearch.common.collect.Lists;
+import org.elasticsearch.common.geo.GeoPoint;
 import org.elasticsearch.common.unit.DistanceUnit;
-import org.elasticsearch.index.mapper.geo.GeoPoint;
 
 public class GeoClusterBuilder {
 

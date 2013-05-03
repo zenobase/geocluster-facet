@@ -2,11 +2,11 @@ package com.zenobase.search.facet.geocluster;
 
 import java.io.IOException;
 
+import org.elasticsearch.common.geo.GeoDistance;
+import org.elasticsearch.common.geo.GeoPoint;
 import org.elasticsearch.common.io.stream.StreamInput;
 import org.elasticsearch.common.io.stream.StreamOutput;
 import org.elasticsearch.common.unit.DistanceUnit;
-import org.elasticsearch.index.mapper.geo.GeoPoint;
-import org.elasticsearch.index.search.geo.GeoDistance;
 
 public class GeoPoints {
 
@@ -26,6 +26,10 @@ public class GeoPoints {
 	public static void writeTo(GeoPoint point, StreamOutput out) throws IOException {
 		out.writeDouble(point.getLat());
 		out.writeDouble(point.getLon());
+	}
+
+	public static GeoPoint copy(GeoPoint point) {
+		return new GeoPoint(point.lat(), point.lon());
 	}
 
 	public static boolean equals(GeoPoint left, GeoPoint right) {

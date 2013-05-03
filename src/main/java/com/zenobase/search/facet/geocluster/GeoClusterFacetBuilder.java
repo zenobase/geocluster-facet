@@ -3,9 +3,9 @@ package com.zenobase.search.facet.geocluster;
 import java.io.IOException;
 
 import org.elasticsearch.common.xcontent.XContentBuilder;
-import org.elasticsearch.search.facet.AbstractFacetBuilder;
+import org.elasticsearch.search.facet.FacetBuilder;
 
-public class GeoClusterFacetBuilder extends AbstractFacetBuilder {
+public class GeoClusterFacetBuilder extends FacetBuilder {
 
 	private final String fieldName;
 	private final double factor;

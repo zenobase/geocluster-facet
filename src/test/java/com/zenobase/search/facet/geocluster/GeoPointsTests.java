@@ -6,10 +6,10 @@ import static org.hamcrest.Matchers.*;
 
 import java.io.IOException;
 
+import org.elasticsearch.common.geo.GeoPoint;
 import org.elasticsearch.common.io.stream.BytesStreamInput;
 import org.elasticsearch.common.io.stream.BytesStreamOutput;
 import org.elasticsearch.common.unit.DistanceUnit;
-import org.elasticsearch.index.mapper.geo.GeoPoint;
 import org.testng.annotations.Test;
 
 public class GeoPointsTests {

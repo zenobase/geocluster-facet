@@ -7,9 +7,9 @@ import static org.hamcrest.Matchers.equalTo;
 
 import java.io.IOException;
 
+import org.elasticsearch.common.geo.GeoPoint;
 import org.elasticsearch.common.io.stream.BytesStreamInput;
 import org.elasticsearch.common.io.stream.BytesStreamOutput;
-import org.elasticsearch.index.mapper.geo.GeoPoint;
 import org.testng.annotations.Test;
 
 public class GeoClusterTests {

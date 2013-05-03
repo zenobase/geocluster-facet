@@ -1,8 +1,8 @@
 package com.zenobase.search.facet.geocluster.test;
 
-import com.zenobase.search.facet.geocluster.GeoBoundingBox;
+import org.elasticsearch.common.geo.GeoPoint;
 
-import org.elasticsearch.index.mapper.geo.GeoPoint;
+import com.zenobase.search.facet.geocluster.GeoBoundingBox;
 
 public interface Places {
 

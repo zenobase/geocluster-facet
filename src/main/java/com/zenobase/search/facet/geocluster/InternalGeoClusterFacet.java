@@ -4,87 +4,80 @@ import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
 
+import org.elasticsearch.common.bytes.BytesReference;
+import org.elasticsearch.common.bytes.HashedBytesArray;
 import org.elasticsearch.common.collect.ImmutableList;
+import org.elasticsearch.common.collect.Lists;
+import org.elasticsearch.common.geo.GeoPoint;
 import org.elasticsearch.common.io.stream.StreamInput;
 import org.elasticsearch.common.io.stream.StreamOutput;
 import org.elasticsearch.common.xcontent.XContentBuilder;
 import org.elasticsearch.common.xcontent.XContentBuilderString;
-import org.elasticsearch.index.mapper.geo.GeoPoint;
 import org.elasticsearch.search.facet.Facet;
 import org.elasticsearch.search.facet.InternalFacet;
 
-public class InternalGeoClusterFacet implements GeoClusterFacet, InternalFacet {
+public class InternalGeoClusterFacet extends InternalFacet implements GeoClusterFacet {
 
-	private static final String STREAM_TYPE = "geoCluster";
+	private static final BytesReference STREAM_TYPE = new HashedBytesArray("geoCluster");
+
+	private static InternalFacet.Stream STREAM = new Stream() {
+
+		@Override
+		public Facet readFacet(StreamInput in) throws IOException {
+			return readGeoClusterFacet(in);
+		}
+	};
 
 	public static void registerStreams() {
 		Streams.registerStream(STREAM, STREAM_TYPE);
 	}
 
-	static InternalFacet.Stream STREAM = new InternalFacet.Stream() {
-		@Override
-		public Facet readFacet(String type, StreamInput in) throws IOException {
-			return readGeoClusterFacet(in);
-		}
-	};
-
-	private String name;
 	private double factor;
-	private GeoCluster[] entries;
+	private List<GeoCluster> entries;
 
 	InternalGeoClusterFacet() {
 
 	}
 
-	public InternalGeoClusterFacet(String name, double factor, GeoCluster[] entries) {
-		this.name = name;
+	public InternalGeoClusterFacet(String name, double factor, List<GeoCluster> entries) {
+		super(name);
 		this.factor = factor;
 		this.entries = entries;
 	}
 
 	@Override
-	public String name() {
-		return this.name;
-	}
-
-	@Override
-	public String getName() {
-		return name();
-	}
-
-	@Override
-	public double getFactor() {
-		return factor;
-	}
-
-	@Override
-	public String type() {
+	public String getType() {
 		return TYPE;
 	}
 
 	@Override
-	public String getType() {
-		return type();
-	}
-
-	@Override
-	public List<GeoCluster> entries() {
-		return ImmutableList.copyOf(entries);
+	public BytesReference streamType() {
+		return STREAM_TYPE;
 	}
 
 	@Override
 	public List<GeoCluster> getEntries() {
-		return entries();
+		return ImmutableList.copyOf(entries);
 	}
 
 	@Override
 	public Iterator<GeoCluster> iterator() {
-		return entries().iterator();
+		return getEntries().iterator();
 	}
 
 	@Override
-	public String streamType() {
-		return STREAM_TYPE;
+	public Facet reduce(List<Facet> facets) {
+		GeoClusterReducer reducer = new GeoClusterReducer(factor);
+		List<GeoCluster> reduced = reducer.reduce(flatMap(facets));
+		return new InternalGeoClusterFacet(getName(), factor, reduced);
+	}
+
+	private List<GeoCluster> flatMap(Iterable<Facet> facets) {
+		List<GeoCluster> entries = Lists.newArrayList();
+		for (Facet facet : facets) {
+			entries.addAll(((GeoClusterFacet) facet).getEntries());
+		}
+		return entries;
 	}
 
 	public static InternalGeoClusterFacet readGeoClusterFacet(StreamInput in) throws IOException {
@@ -95,19 +88,19 @@ public class InternalGeoClusterFacet implements GeoClusterFacet, InternalFacet {
 
 	@Override
 	public void readFrom(StreamInput in) throws IOException {
-		name = in.readString();
+		super.readFrom(in);
 		factor = in.readDouble();
-		entries = new GeoCluster[in.readVInt()];
-		for (int i = 0; i < entries.length; ++i) {
-			entries[i] = GeoCluster.readFrom(in);
+		entries = Lists.newArrayList();
+		for (int i = 0, max = in.readVInt(); i < max; ++i) {
+			entries.add(GeoCluster.readFrom(in));
 		}
 	}
 
 	@Override
 	public void writeTo(StreamOutput out) throws IOException {
-		out.writeString(name);
+		super.writeTo(out);
 		out.writeDouble(factor);
-		out.writeVInt(entries.length);
+		out.writeVInt(entries.size());
 		for (GeoCluster entry : entries) {
 			entry.writeTo(out);
 		}
@@ -128,7 +121,7 @@ public class InternalGeoClusterFacet implements GeoClusterFacet, InternalFacet {
 
 	@Override
 	public XContentBuilder toXContent(XContentBuilder builder, Params params) throws IOException {
-		builder.startObject(name);
+		builder.startObject(getName());
 		builder.field(Fields._TYPE, GeoClusterFacet.TYPE);
 		builder.field(Fields.FACTOR, factor);
 		builder.startArray(Fields.CLUSTERS);

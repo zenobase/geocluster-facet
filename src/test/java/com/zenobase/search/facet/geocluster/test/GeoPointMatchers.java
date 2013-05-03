@@ -1,6 +1,6 @@
 package com.zenobase.search.facet.geocluster.test;
 
-import org.elasticsearch.index.mapper.geo.GeoPoint;
+import org.elasticsearch.common.geo.GeoPoint;
 import org.hamcrest.CustomTypeSafeMatcher;
 import org.hamcrest.Description;
 import org.hamcrest.Matchers;

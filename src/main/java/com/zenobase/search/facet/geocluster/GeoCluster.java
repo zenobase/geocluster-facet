@@ -3,9 +3,9 @@ package com.zenobase.search.facet.geocluster;
 import java.io.IOException;
 import java.util.Arrays;
 
+import org.elasticsearch.common.geo.GeoPoint;
 import org.elasticsearch.common.io.stream.StreamInput;
 import org.elasticsearch.common.io.stream.StreamOutput;
-import org.elasticsearch.index.mapper.geo.GeoPoint;
 
 public class GeoCluster {
 
@@ -59,8 +59,8 @@ public class GeoCluster {
 		GeoPoint center = GeoPoints.readFrom(in);
 		GeoBoundingBox bounds = size > 1
 			? GeoBoundingBox.readFrom(in)
-				: new GeoBoundingBox(center, center);
-			return new GeoCluster(size, center, bounds);
+			: new GeoBoundingBox(center, center);
+		return new GeoCluster(size, center, bounds);
 	}
 
 	public void writeTo(StreamOutput out) throws IOException {

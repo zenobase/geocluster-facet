@@ -7,7 +7,7 @@ import static org.hamcrest.Matchers.*;
 import java.util.List;
 
 import org.elasticsearch.common.collect.Lists;
-import org.elasticsearch.index.mapper.geo.GeoPoint;
+import org.elasticsearch.common.geo.GeoPoint;
 import org.testng.annotations.Test;
 
 public class GeoClusterReducerTests {

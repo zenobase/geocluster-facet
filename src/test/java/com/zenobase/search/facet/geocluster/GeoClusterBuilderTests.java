@@ -4,7 +4,7 @@ import static com.zenobase.search.facet.geocluster.test.Places.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 
-import org.elasticsearch.index.mapper.geo.GeoPoint;
+import org.elasticsearch.common.geo.GeoPoint;
 import org.testng.annotations.Test;
 
 public class GeoClusterBuilderTests {

@@ -1,9 +1,7 @@
 package com.zenobase.search.facet.geocluster;
 
-import org.elasticsearch.common.inject.Module;
 import org.elasticsearch.plugins.AbstractPlugin;
 import org.elasticsearch.search.facet.FacetModule;
-import org.elasticsearch.search.facet.TransportFacetModule;
 
 public class GeoClusterFacetPlugin extends AbstractPlugin {
 
@@ -17,14 +15,8 @@ public class GeoClusterFacetPlugin extends AbstractPlugin {
 		return "Facet for clustering geo points";
 	}
 
-	@Override
-	public void processModule(Module module) {
-		if (module instanceof FacetModule) {
-			((FacetModule) module).addFacetProcessor(GeoClusterFacetProcessor.class);
-			InternalGeoClusterFacet.registerStreams();
-		}
-		if (module instanceof TransportFacetModule) {
-			InternalGeoClusterFacet.registerStreams();
-		}
+	public void onModule(FacetModule module) {
+		module.addFacetProcessor(GeoClusterFacetParser.class);
+		InternalGeoClusterFacet.registerStreams();
 	}
 }

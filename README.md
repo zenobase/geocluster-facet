@@ -19,7 +19,7 @@ Versions
 	<tbody>
 		<tr>
 			<td>master</td>
-			<td>0.20.x</td>
+			<td>0.90.x</td>
 		</tr>
 		<tr>
 			<td><a href="https://docs.google.com/file/d/0B6V71rdiuHLJNlcxQV8zOVhTWWs/edit?usp=sharing">0.0.4</a></td>
@@ -53,7 +53,7 @@ Parameters
 		<tr>
             <th>factor</th>
         	<td>Controls the amount of clustering, from 0.0 (don't cluster any points) to 1.0 (create a single cluster containing all points). 
-        	Defaults to 0.2. This value is relative to the size of the area that contains points, so it does not need to be adjusted e.g. when 
+        	Defaults to 0.1. This value is relative to the size of the area that contains points, so it does not need to be adjusted e.g. when 
         	zooming in on a map.</td>
         </tr>
 	</tbody>
