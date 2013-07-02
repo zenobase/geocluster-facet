@@ -18,7 +18,7 @@ import org.elasticsearch.search.facet.InternalFacet;
 
 public class InternalGeoClusterFacet extends InternalFacet implements GeoClusterFacet {
 
-	private static final BytesReference STREAM_TYPE = new HashedBytesArray("geoCluster");
+	private static final BytesReference STREAM_TYPE = new HashedBytesArray("geoCluster".getBytes());
 
 	private static InternalFacet.Stream STREAM = new Stream() {
 
