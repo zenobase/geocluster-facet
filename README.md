@@ -3,7 +3,7 @@ Geo Cluster Facet Plugin for elasticsearch
 
 This plugin provides a facet for [elasticsearch](http://www.elasticsearch.org/) to aggregate documents with `geo_point` fields.
 
-To install the plugin, download and extract this plugin into the `plugins` dir.
+To install the plugin, [download](https://github.com/zenobase/geocluster-facet/releases) and extract this plugin into the `plugins` dir.
 
 
 Versions
@@ -18,27 +18,15 @@ Versions
 	</thead>
 	<tbody>
 		<tr>
-			<td>master</td>
-			<td>0.90.x</td>
+			<td>0.0.6 -> master</td>
+			<td>0.90.2</td>
 		</tr>
 		<tr>
-			<td><a href="https://docs.google.com/file/d/0B6V71rdiuHLJa0Rlcm1kckQ5cnc/edit?usp=sharing">0.0.6</a></td>
-			<td>0.90.x</td>
+			<td>0.0.5</td>
+			<td>0.90.0 -> 0.90.1</td>
 		</tr>
 		<tr>
-			<td><a href="https://docs.google.com/file/d/0B6V71rdiuHLJMFZ4clB0bVpnRUk/edit?usp=sharing">0.0.5</a></td>
-			<td>0.90.x</td>
-		</tr>
-		<tr>
-			<td><a href="https://docs.google.com/file/d/0B6V71rdiuHLJNlcxQV8zOVhTWWs/edit?usp=sharing">0.0.4</a></td>
-			<td>0.20.x</td>
-		</tr>
-		<tr>
-			<td><a href="https://docs.google.com/file/d/0B6V71rdiuHLJbnY1Q2xGQlVMUGc/edit?usp=sharing">0.0.3</a></td>
-			<td>0.20.x</td>
-		</tr>
-		<tr>
-			<td>0.0.2</td>
+			<td>0.0.2 -> 0.0.4</td>
 			<td>0.20.x</td>
 		</tr>
 		<tr>
