@@ -66,9 +66,9 @@ public class InternalGeoClusterFacet extends InternalFacet implements GeoCluster
 	}
 
 	@Override
-	public Facet reduce(List<Facet> facets) {
+	public Facet reduce(ReduceContext context) {
 		GeoClusterReducer reducer = new GeoClusterReducer(factor);
-		List<GeoCluster> reduced = reducer.reduce(flatMap(facets));
+		List<GeoCluster> reduced = reducer.reduce(flatMap(context.facets()));
 		return new InternalGeoClusterFacet(getName(), factor, reduced);
 	}
 
