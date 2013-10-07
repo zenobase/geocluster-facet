@@ -14,9 +14,15 @@ public class GeoClusterBuilder {
 	private final List<GeoCluster> clusters = Lists.newArrayList();
 	private GeoBoundingBox bounds;
 	private double maxDistance = 0.0;
+	private boolean calcPolygon;
 
 	public GeoClusterBuilder(double factor) {
+		this(factor, false);
+	}
+
+	public GeoClusterBuilder(double factor, boolean calcPolygon) {
 		this.factor = factor;
+		this.calcPolygon = calcPolygon;
 	}
 
 	public GeoClusterBuilder add(GeoPoint point) {
@@ -36,7 +42,7 @@ public class GeoClusterBuilder {
 			}
 		}
 		if (nearest == null) {
-			nearest = new GeoCluster(point);
+			nearest = new GeoCluster(point, calcPolygon);
 			clusters.add(nearest);
 		} else {
 			nearest.add(point);

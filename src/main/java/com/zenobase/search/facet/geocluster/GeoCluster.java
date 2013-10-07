@@ -12,28 +12,54 @@ public class GeoCluster {
 	private int size;
 	private GeoPoint center;
 	private GeoBoundingBox bounds;
+	private boolean calcPolygon = false;
+	private GeoPolygon polygon = null;
 
 	public GeoCluster(GeoPoint point) {
-		this(1, point, new GeoBoundingBox(point));
+		this(1, point, new GeoBoundingBox(point), false);
+	}
+
+	public GeoCluster(GeoPoint point, boolean calcPolygon) {
+		this(1, point, new GeoBoundingBox(point), calcPolygon);
 	}
 
 	public GeoCluster(int size, GeoPoint center, GeoBoundingBox bounds) {
+		this(size, center, bounds, false);
+	}
+	
+	public GeoCluster(int size, GeoPoint center, GeoBoundingBox bounds, boolean calcPolygon) {
+		this(size, center, bounds, null);
+		this.calcPolygon = calcPolygon;
+		if (this.calcPolygon) {
+			this.polygon = new GeoPolygon(bounds);
+		}
+	}
+	
+	public GeoCluster(int size, GeoPoint center, GeoBoundingBox bounds, GeoPolygon polygon) {
 		this.size = size;
 		this.center = center;
 		this.bounds = bounds;
+		this.polygon = polygon;
+		this.calcPolygon = polygon != null;
 	}
 
 	public void add(GeoPoint point) {
 		++size;
 		center = mean(center, size - 1, point, 1);
 		bounds = bounds.extend(point);
+		if (calcPolygon) {
+			polygon.add(point);
+		}
 	}
 
 	public GeoCluster merge(GeoCluster that) {
 		int size = this.size + that.size();
 		GeoPoint center = mean(this.center, size - that.size(), that.center(), that.size());
 		GeoBoundingBox bounds = this.bounds.extend(that.bounds());
-		return new GeoCluster(size, center, bounds);
+		if (calcPolygon) {
+			return new GeoCluster(size, center, bounds, polygon.merge(that.getPolygon()));
+		}
+		return new GeoCluster(size, center, bounds, false);
 	}
 
 	private static GeoPoint mean(GeoPoint left, int leftWeight, GeoPoint right, int rightWeight) {
@@ -54,13 +80,22 @@ public class GeoCluster {
 		return bounds;
 	}
 
+	public GeoPolygon polygon() {
+		return polygon;
+	}
+
 	public static GeoCluster readFrom(StreamInput in) throws IOException {
 		int size = in.readVInt();
 		GeoPoint center = GeoPoints.readFrom(in);
 		GeoBoundingBox bounds = size > 1
 			? GeoBoundingBox.readFrom(in)
 			: new GeoBoundingBox(center, center);
-		return new GeoCluster(size, center, bounds);
+		if (in.readBoolean()) {	
+			GeoPolygon p = GeoPolygon.readFrom(in);
+			return new GeoCluster(size, center, bounds, p);
+		} else {
+			return new GeoCluster(size, center, bounds);
+		}
 	}
 
 	public void writeTo(StreamOutput out) throws IOException {
@@ -68,6 +103,12 @@ public class GeoCluster {
 		GeoPoints.writeTo(center, out);
 		if (size > 1) {
 			bounds.writeTo(out);
+		}
+		if (calcPolygon && polygon != null) {
+			out.writeBoolean(true);
+			polygon.writeTo(out);
+		} else {
+			out.writeBoolean(false);
 		}
 	}
 
@@ -96,4 +137,13 @@ public class GeoCluster {
 	public String toString() {
 		return String.format("%s (%d)", GeoPoints.toString(center), size);
 	}
+	
+	public boolean isCalcPolygon() {
+		return calcPolygon;
+	}
+
+	public GeoPolygon getPolygon() {
+		return polygon;
+	}
+
 }

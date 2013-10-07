@@ -13,12 +13,14 @@ public class GeoClusterFacetExecutor extends FacetExecutor {
 
 	private final IndexGeoPointFieldData<?> indexFieldData;
 	private final double factor;
+	private boolean calcPolygon;
 	private final GeoClusterBuilder builder;
 
-	public GeoClusterFacetExecutor(IndexGeoPointFieldData<?> indexFieldData, double factor) {
+	public GeoClusterFacetExecutor(IndexGeoPointFieldData<?> indexFieldData, double factor, boolean calcPolygon) {
 		this.indexFieldData = indexFieldData;
 		this.factor = factor;
-		this.builder = new GeoClusterBuilder(factor);
+		this.calcPolygon = calcPolygon;
+		this.builder = new GeoClusterBuilder(factor, calcPolygon);
 	}
 
 	@Override
@@ -28,7 +30,7 @@ public class GeoClusterFacetExecutor extends FacetExecutor {
 
 	@Override
 	public InternalFacet buildFacet(String facetName) {
-		return new InternalGeoClusterFacet(facetName, factor, builder.build());
+		return new InternalGeoClusterFacet(facetName, factor, calcPolygon, builder.build());
 	}
 
 	private class Collector extends FacetExecutor.Collector {

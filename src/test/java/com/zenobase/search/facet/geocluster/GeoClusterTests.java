@@ -4,6 +4,7 @@ import static com.zenobase.search.facet.geocluster.test.GeoPointMatchers.closeTo
 import static com.zenobase.search.facet.geocluster.test.Places.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.notNullValue;
 
 import java.io.IOException;
 
@@ -66,4 +67,14 @@ public class GeoClusterTests {
 		assertThat(merged.center(), closeTo(new GeoPoint(33.9067, -116.4767)));
 		assertThat(merged.bounds(), equalTo(new GeoBoundingBox(LAS_VEGAS).extend(SAN_DIEGO)));
 	}
+
+	@Test
+	public void testCalcPolygon() {
+		GeoCluster cluster = new GeoCluster(DENVER, true);
+		cluster.add(LAS_VEGAS);
+		cluster.add(SAN_DIEGO);
+		assertThat(cluster.polygon(), notNullValue());
+		assertThat(cluster.polygon().getEdgeCount(), equalTo(3));
+	}
+
 }

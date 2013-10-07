@@ -44,7 +44,7 @@ public class GeoClusterFacetParser extends AbstractComponent implements FacetPar
 
 		String fieldName = null;
 		double factor = 0.1;
-
+		boolean calcPolygon = false;
 		String currentName = parser.currentName();
 		XContentParser.Token token;
 		while ((token = parser.nextToken()) != XContentParser.Token.END_OBJECT) {
@@ -55,10 +55,11 @@ public class GeoClusterFacetParser extends AbstractComponent implements FacetPar
 					fieldName = parser.text();
 				} else if ("factor".equals(currentName)) {
 					factor = parser.doubleValue();
+				} else if ("calc_polygon".equals(currentName)) {
+					calcPolygon = parser.booleanValue();
 				}
 			}
 		}
-
 		if (factor < 0.0 || factor > 1.0) {
 			throw new FacetPhaseExecutionException(facetName, "value [" + factor + "] is not in range [0.0, 1.0]");
 		}
@@ -67,6 +68,6 @@ public class GeoClusterFacetParser extends AbstractComponent implements FacetPar
             throw new FacetPhaseExecutionException(facetName, "failed to find mapping for [" + fieldName + "]");
         }
         IndexGeoPointFieldData<?> indexFieldData = context.fieldData().getForField(fieldMapper);
-		return new GeoClusterFacetExecutor(indexFieldData, factor);
+		return new GeoClusterFacetExecutor(indexFieldData, factor, calcPolygon);
 	}
 }
