@@ -3,7 +3,11 @@ Geo Cluster Facet Plugin for elasticsearch
 
 This plugin provides a facet for [elasticsearch](http://www.elasticsearch.org/) to aggregate documents with `geo_point` fields.
 
-To install the plugin, run: `bin/plugin --url https://github.com/zenobase/geocluster-facet/releases/download/x.x.x/geocluster-facet-x.x.x.jar --install geocluster-facet`
+To install the plugin, run:
+
+```
+bin/plugin --url https://github.com/zenobase/geocluster-facet/releases/download/0.0.8/geocluster-facet-0.0.8.jar --install geocluster-facet
+```
 
 
 Versions
