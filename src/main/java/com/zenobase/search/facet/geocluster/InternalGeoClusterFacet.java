@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
 
+import org.elasticsearch.common.Strings;
 import org.elasticsearch.common.bytes.BytesReference;
 import org.elasticsearch.common.bytes.HashedBytesArray;
 import org.elasticsearch.common.collect.ImmutableList;
@@ -18,7 +19,7 @@ import org.elasticsearch.search.facet.InternalFacet;
 
 public class InternalGeoClusterFacet extends InternalFacet implements GeoClusterFacet {
 
-	private static final BytesReference STREAM_TYPE = new HashedBytesArray("geoCluster".getBytes());
+	private static final BytesReference STREAM_TYPE = new HashedBytesArray(Strings.toUTF8Bytes("geoCluster"));
 
 	private static InternalFacet.Stream STREAM = new Stream() {
 
