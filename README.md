@@ -6,7 +6,7 @@ This plugin provides a facet for [elasticsearch](http://www.elasticsearch.org/) 
 To install the plugin, run:
 
 ```
-bin/plugin --url https://github.com/zenobase/geocluster-facet/releases/download/0.0.8/geocluster-facet-0.0.8.jar --install geocluster-facet
+bin/plugin --url https://github.com/zenobase/geocluster-facet/releases/download/0.0.9/geocluster-facet-0.0.9.jar --install geocluster-facet
 ```
 
 
@@ -22,7 +22,11 @@ Versions
 	</thead>
 	<tbody>
 		<tr>
-			<td>0.0.8 -> master</td>
+			<td>0.0.9 -> master</td>
+			<td>0.90.6</td>
+		</tr>
+		<tr>
+			<td>0.0.8</td>
 			<td>0.90.5</td>
 		</tr>
 		<tr>
