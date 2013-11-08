@@ -4,7 +4,6 @@ import java.io.IOException;
 
 import org.apache.lucene.index.AtomicReaderContext;
 import org.elasticsearch.index.fielddata.GeoPointValues;
-import org.elasticsearch.index.fielddata.GeoPointValues.Iter;
 import org.elasticsearch.index.fielddata.IndexGeoPointFieldData;
 import org.elasticsearch.search.facet.FacetExecutor;
 import org.elasticsearch.search.facet.InternalFacet;
@@ -42,8 +41,9 @@ public class GeoClusterFacetExecutor extends FacetExecutor {
 
 		@Override
 		public void collect(int docId) throws IOException {
-			for (Iter iter = values.getIter(docId); iter.hasNext();) {
-				builder.add(GeoPoints.copy(iter.next())); // iter.next() recycles GeoPoint instances!
+			final int length = values.setDocument(docId);
+			for (int i = 0; i < length; i++) {
+				builder.add(GeoPoints.copy(values.nextValue())); // nextValue() may recycle GeoPoint instances!
 			}
 		}
 
