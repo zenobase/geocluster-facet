@@ -1,7 +1,8 @@
 Geo Cluster Facet Plugin for elasticsearch
 ==========================================
 
-This plugin provides a facet for [elasticsearch](http://www.elasticsearch.org/) to aggregate documents with `geo_point` fields.
+This plugin provides a facet for [elasticsearch](http://www.elasticsearch.org/) to aggregate documents with `geo_point` fields.  
+A naive, distance-based algorithm is used to build rectangular (and potentially overlapping) clusters with a weighted center.
 
 To install the plugin, run:
 
@@ -23,7 +24,7 @@ Versions
 	<tbody>
 		<tr>
 			<td>0.0.9 -> master</td>
-			<td>0.90.6</td>
+			<td>0.90.6, 0.90.7</td>
 		</tr>
 		<tr>
 			<td>0.0.8</td>
