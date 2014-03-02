@@ -23,7 +23,7 @@ public class GeoClusterReducer {
 				for (int j = i + 1; j < reduced.size(); ++j) {
 					GeoCluster a = reduced.get(i);
 					GeoCluster b = reduced.get(j);
-					if (GeoPoints.distance(a.center(), b.center(), unit) <= maxDistance) {
+					if (a.center().equals(b.center()) || maxDistance > 0.0 && GeoPoints.distance(a.center(), b.center(), unit) <= maxDistance) {
 						reduced.remove(a);
 						reduced.remove(b);
 						reduced.add(a.merge(b));

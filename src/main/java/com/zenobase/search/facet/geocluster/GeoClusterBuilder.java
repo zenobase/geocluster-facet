@@ -29,10 +29,15 @@ public class GeoClusterBuilder {
 		GeoCluster nearest = null;
 		double minDistance = Double.MAX_VALUE;
 		for (GeoCluster cluster : clusters) {
-			double distance = GeoPoints.distance(cluster.center(), point, unit);
-			if (distance < minDistance && distance <= maxDistance && cluster.bounds().extend(point).size(unit) <= maxDistance) {
-				distance = minDistance;
+			if (cluster.center().equals(point)) {
 				nearest = cluster;
+				break;
+			}
+			if (maxDistance > 0.0) {
+				double distance = GeoPoints.distance(cluster.center(), point, unit);
+				if (distance < minDistance && distance <= maxDistance && cluster.bounds().extend(point).size(unit) <= maxDistance) {
+					nearest = cluster;
+				}
 			}
 		}
 		if (nearest == null) {
