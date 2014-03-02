@@ -27,7 +27,6 @@ public class GeoClusterBuilder {
 			maxDistance = factor * bounds.size(unit);
 		}
 		GeoCluster nearest = null;
-		double minDistance = Double.MAX_VALUE;
 		for (GeoCluster cluster : clusters) {
 			if (cluster.center().equals(point)) {
 				nearest = cluster;
@@ -35,7 +34,7 @@ public class GeoClusterBuilder {
 			}
 			if (maxDistance > 0.0) {
 				double distance = GeoPoints.distance(cluster.center(), point, unit);
-				if (distance < minDistance && distance <= maxDistance && cluster.bounds().extend(point).size(unit) <= maxDistance) {
+				if (distance <= maxDistance && cluster.bounds().extend(point).size(unit) <= maxDistance) {
 					nearest = cluster;
 				}
 			}
