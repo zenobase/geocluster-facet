@@ -7,7 +7,7 @@ A naive, distance-based algorithm is used to build rectangular (and potentially 
 To install the plugin, run:
 
 ```
-bin/plugin --url https://github.com/zenobase/geocluster-facet/releases/download/0.0.9/geocluster-facet-0.0.9.jar --install geocluster-facet
+bin/plugin --url https://github.com/zenobase/geocluster-facet/releases/download/0.0.11/geocluster-facet-0.0.11.jar --install geocluster-facet
 ```
 
 
@@ -23,8 +23,12 @@ Versions
 	</thead>
 	<tbody>
 		<tr>
-			<td>0.0.10 -> master</td>
-			<td>1.0.0</td>
+			<td>0.0.11 -> master</td>
+			<td>1.2.x</td>
+		</tr>
+		<tr>
+			<td>0.0.10</td>
+			<td>1.0.x, 1.1.x</td>
 		</tr>
 		<tr>
 			<td>0.0.9</td>
@@ -131,7 +135,7 @@ License
 ```
 This software is licensed under the Apache 2 license, quoted below.
 
-Copyright 2012-2013 Zenobase LLC
+Copyright 2012-2014 Zenobase LLC
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not
 use this file except in compliance with the License. You may obtain a copy of
