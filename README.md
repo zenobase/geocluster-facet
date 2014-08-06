@@ -24,7 +24,7 @@ Versions
 	<tbody>
 		<tr>
 			<td>0.0.11 -> master</td>
-			<td>1.2.x</td>
+			<td>1.2.x, 1.3.x</td>
 		</tr>
 		<tr>
 			<td>0.0.10</td>
