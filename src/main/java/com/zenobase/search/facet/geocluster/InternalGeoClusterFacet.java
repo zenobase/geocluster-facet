@@ -34,15 +34,17 @@ public class InternalGeoClusterFacet extends InternalFacet implements GeoCluster
 	}
 
 	private double factor;
+	private boolean calcPolygon;
 	private List<GeoCluster> entries;
 
 	InternalGeoClusterFacet() {
 
 	}
 
-	public InternalGeoClusterFacet(String name, double factor, List<GeoCluster> entries) {
+	public InternalGeoClusterFacet(String name, double factor, boolean calcPolygon, List<GeoCluster> entries) {
 		super(name);
 		this.factor = factor;
+		this.calcPolygon = calcPolygon;
 		this.entries = entries;
 	}
 
@@ -70,7 +72,7 @@ public class InternalGeoClusterFacet extends InternalFacet implements GeoCluster
 	public Facet reduce(ReduceContext context) {
 		GeoClusterReducer reducer = new GeoClusterReducer(factor);
 		List<GeoCluster> reduced = reducer.reduce(flatMap(context.facets()));
-		return new InternalGeoClusterFacet(getName(), factor, reduced);
+		return new InternalGeoClusterFacet(getName(), factor, calcPolygon, reduced);
 	}
 
 	private List<GeoCluster> flatMap(Iterable<Facet> facets) {
@@ -91,6 +93,7 @@ public class InternalGeoClusterFacet extends InternalFacet implements GeoCluster
 	public void readFrom(StreamInput in) throws IOException {
 		super.readFrom(in);
 		factor = in.readDouble();
+		calcPolygon = in.readBoolean();
 		entries = Lists.newArrayList();
 		for (int i = 0, max = in.readVInt(); i < max; ++i) {
 			entries.add(GeoCluster.readFrom(in));
@@ -101,6 +104,7 @@ public class InternalGeoClusterFacet extends InternalFacet implements GeoCluster
 	public void writeTo(StreamOutput out) throws IOException {
 		super.writeTo(out);
 		out.writeDouble(factor);
+		out.writeBoolean(calcPolygon);
 		out.writeVInt(entries.size());
 		for (GeoCluster entry : entries) {
 			entry.writeTo(out);
@@ -111,6 +115,8 @@ public class InternalGeoClusterFacet extends InternalFacet implements GeoCluster
 
 		final XContentBuilderString _TYPE = new XContentBuilderString("_type");
 		final XContentBuilderString FACTOR = new XContentBuilderString("factor");
+		final XContentBuilderString CALC_POLYGON = new XContentBuilderString("calc_polygon");
+		final XContentBuilderString VERTICES = new XContentBuilderString("vertices");
 		final XContentBuilderString CLUSTERS = new XContentBuilderString("clusters");
 		final XContentBuilderString TOTAL = new XContentBuilderString("total");
 		final XContentBuilderString CENTER = new XContentBuilderString("center");
@@ -118,6 +124,7 @@ public class InternalGeoClusterFacet extends InternalFacet implements GeoCluster
 		final XContentBuilderString BOTTOM_RIGHT = new XContentBuilderString("bottom_right");
 		final XContentBuilderString LAT = new XContentBuilderString("lat");
 		final XContentBuilderString LON = new XContentBuilderString("lon");
+		final XContentBuilderString VERTEX = new XContentBuilderString("vertex");
 	}
 
 	@Override
@@ -125,6 +132,7 @@ public class InternalGeoClusterFacet extends InternalFacet implements GeoCluster
 		builder.startObject(getName());
 		builder.field(Fields._TYPE, GeoClusterFacet.TYPE);
 		builder.field(Fields.FACTOR, factor);
+		builder.field(Fields.CALC_POLYGON, calcPolygon);
 		builder.startArray(Fields.CLUSTERS);
 		for (GeoCluster entry : entries) {
 			toXContent(entry, builder);
@@ -141,6 +149,18 @@ public class InternalGeoClusterFacet extends InternalFacet implements GeoCluster
 		if (entry.size() > 1) {
 			toXContent(entry.bounds().topLeft(), Fields.TOP_LEFT, builder);
 			toXContent(entry.bounds().bottomRight(), Fields.BOTTOM_RIGHT, builder);
+			if (entry.isCalcPolygon()) {
+				List<GeoPoint> vertices = entry.getPolygon().getPoints();
+				if (vertices.size() >= 3) {
+					builder.startArray(Fields.VERTICES);
+					for (GeoPoint p : vertices) {
+						builder.startObject();
+						toXContent(p, Fields.VERTEX, builder);
+						builder.endObject();
+					}
+					builder.endArray();
+				}
+			}
 		}
 		builder.endObject();
 	}
