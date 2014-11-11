@@ -3,18 +3,18 @@ package com.zenobase.search.facet.geocluster;
 import java.io.IOException;
 
 import org.apache.lucene.index.AtomicReaderContext;
-import org.elasticsearch.index.fielddata.GeoPointValues;
 import org.elasticsearch.index.fielddata.IndexGeoPointFieldData;
+import org.elasticsearch.index.fielddata.MultiGeoPointValues;
 import org.elasticsearch.search.facet.FacetExecutor;
 import org.elasticsearch.search.facet.InternalFacet;
 
 public class GeoClusterFacetExecutor extends FacetExecutor {
 
-	private final IndexGeoPointFieldData<?> indexFieldData;
+	private final IndexGeoPointFieldData indexFieldData;
 	private final double factor;
 	private final GeoClusterBuilder builder;
 
-	public GeoClusterFacetExecutor(IndexGeoPointFieldData<?> indexFieldData, double factor) {
+	public GeoClusterFacetExecutor(IndexGeoPointFieldData indexFieldData, double factor) {
 		this.indexFieldData = indexFieldData;
 		this.factor = factor;
 		this.builder = new GeoClusterBuilder(factor);
@@ -32,7 +32,7 @@ public class GeoClusterFacetExecutor extends FacetExecutor {
 
 	private class Collector extends FacetExecutor.Collector {
 
-		private GeoPointValues values;
+		private MultiGeoPointValues values;
 
 		@Override
 		public void setNextReader(AtomicReaderContext context) throws IOException {
@@ -41,9 +41,10 @@ public class GeoClusterFacetExecutor extends FacetExecutor {
 
 		@Override
 		public void collect(int docId) throws IOException {
-			final int length = values.setDocument(docId);
-			for (int i = 0; i < length; i++) {
-				builder.add(GeoPoints.copy(values.nextValue())); // nextValue() may recycle GeoPoint instances!
+			values.setDocument(docId);
+			int length = values.count();
+			for (int i = 0; i < length; ++i) {
+				builder.add(GeoPoints.copy(values.valueAt(i))); // GeoPoint instances are recycled!
 			}
 		}
 

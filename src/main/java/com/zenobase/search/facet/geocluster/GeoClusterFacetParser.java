@@ -66,7 +66,7 @@ public class GeoClusterFacetParser extends AbstractComponent implements FacetPar
         if (fieldMapper == null) {
             throw new FacetPhaseExecutionException(facetName, "failed to find mapping for [" + fieldName + "]");
         }
-        IndexGeoPointFieldData<?> indexFieldData = context.fieldData().getForField(fieldMapper);
+        IndexGeoPointFieldData indexFieldData = context.fieldData().getForField(fieldMapper);
 		return new GeoClusterFacetExecutor(indexFieldData, factor);
 	}
 }
