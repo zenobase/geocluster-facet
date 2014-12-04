@@ -24,7 +24,10 @@ Versions
 	<tbody>
 		<tr>
 			<td>0.0.12 -> master</td>
-			<td>1.4.x</td>
+			<td>
+				1.4.x
+        		<a href="https://travis-ci.org/zenobase/geocluster-facet"><img title="Build Status" src="https://travis-ci.org/zenobase/geocluster-facet.png?branch=master"/></a>
+			</td>
 		</tr>
 		<tr>
 			<td>0.0.11</td>
@@ -76,11 +79,11 @@ Parameters
 			<td>The name of a field of type `geo_point`.</td>
 		</tr>
 		<tr>
-            <th>factor</th>
-        	<td>Controls the amount of clustering, from 0.0 (don't cluster any points) to 1.0 (create a single cluster containing all points). 
-        	Defaults to 0.1. This value is relative to the size of the area that contains points, so it does not need to be adjusted e.g. when 
-        	zooming in on a map.</td>
-        </tr>
+			<th>factor</th>
+			<td>Controls the amount of clustering, from 0.0 (don't cluster any points) to 1.0 (create a single cluster containing all points). 
+			Defaults to 0.1. This value is relative to the size of the area that contains points, so it does not need to be adjusted e.g. when 
+			zooming in on a map.</td>
+		</tr>
 	</tbody>
 </table>
 
