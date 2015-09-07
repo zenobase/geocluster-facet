@@ -27,7 +27,7 @@ Versions
 				0.0.12 -> master
         		<a href="https://travis-ci.org/zenobase/geocluster-facet"><img title="Build Status" src="https://travis-ci.org/zenobase/geocluster-facet.png?branch=master"/></a>
         	</td>
-			<td>1.4.x</td>
+			<td>1.4.x -> 1.7.x</td>
 		</tr>
 		<tr>
 			<td>0.0.11</td>
